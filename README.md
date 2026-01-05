@@ -1,23 +1,44 @@
-# Revision Token Gate — v0.01
+# README.md — Revision Token Gate (S6)
 
-This is not a SaaS.
-This is a behavior test.
+Behavior-first micro-MVP for solo copywriters/ghostwriters.
 
-## What this tests
+## What this is
 
-Whether a solo copywriter will copy and send a ready-made message
-that sets a revision limit after final delivery.
+A minimal tool that helps a freelancer set a clear revision boundary _after “final delivery”_ using a ready-to-send message + a simple revision meter.
+
+## ICP
+
+Solo copywriter / ghostwriter (3–15 clients/month) working via WhatsApp / Email / Google Docs.
 
 ## Moment of truth
 
-The moment a client asks for a “small change” after final.
+When a client asks for a “small change” after the final version was delivered.
 
-## Success signal
+## Success signals (behavior)
 
-Message copied (and ideally sent) in a real client conversation.
+- `message_copied` (minimum truth)
+- `request_created` (manual or client)
+- optional gold: message was actually sent in a real client conversation
 
-## What this is NOT
+## Non-goals (for v0.1)
 
-- project management tool
-- pricing system
-- dashboard
+- accounts/auth
+- payments
+- integrations (WA/Gmail/Docs)
+- AI scope classification
+- “project management” features
+
+## Versions
+
+### v0.1 (Sprint goal)
+
+Time-to-send < 20 seconds:
+
+- Create a project (name, client, included_limit) — minimal
+- Generate “included” + “extra” client message templates
+- Copy button (included/extra)
+- Manual add request (increments round number, classifies included/extra)
+- Public token link (1 text field → creates request)
+- Basic event log: project_created, link_generated, message_copied, request_created
+
+Decision Gate: 25.01.2026 (PASS / FREEZE / KILL)
