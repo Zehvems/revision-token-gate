@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     ) {
       return Response.json(
         { error: "includedLimit must be an integer" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,6 +26,20 @@ export async function POST(req: Request) {
       },
     });
     return Response.json(project, { status: 201 });
+  } catch {
+    return Response.json({ error: "route err" }, { status: 500 });
+  }
+}
+export async function GET() {
+  try {
+    return Response.json(
+      {
+        projects: await prisma.project.findMany({
+          orderBy: { createdAt: "desc" },
+        }),
+      },
+      { status: 200 },
+    );
   } catch {
     return Response.json({ error: "route err" }, { status: 500 });
   }
