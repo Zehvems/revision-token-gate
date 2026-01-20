@@ -1,13 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
-
 
 datasource db {
   provider = "sqlite"
@@ -20,4 +13,34 @@ model Project {
   clientName    String?
   includedLimit Int
   createdAt     DateTime @default(now())
+
+  // 1 Project -> many Requests
+  requests Request[]
+}
+
+enum RequestType {
+  included
+  extra
+}
+
+model Request {
+  id String @id @default(cuid())
+
+  // Foreign key + relation to Project
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  // Meter core
+  roundNumber Int
+  type        RequestType
+
+  // The request content (what client asked to change)
+  body String
+
+  createdAt DateTime @default(now())
+
+  // Prevent duplicate round numbers inside the same project
+  @@unique([projectId, roundNumber])
+  // Fast lookups per project
+  @@index([projectId])
 }

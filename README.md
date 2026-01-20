@@ -41,4 +41,4 @@ Time-to-send < 20 seconds:
 - Public token link (1 text field → creates request)
 - Basic event log: project_created, link_generated, message_copied, request_created
 
-Decision Gate: 25.01.2026 (PASS / FREEZE / KILL)
+Decision Gate: 31.01.2026 (PASS / FREEZE / KILL)
