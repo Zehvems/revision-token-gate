@@ -40,7 +40,12 @@ export async function GET() {
       },
       { status: 200 },
     );
-  } catch {
-    return Response.json({ error: "route err" }, { status: 500 });
-  }
+  } catch (e) {
+  console.error(e);
+  return Response.json(
+    { error: "route err", detail: String(e) },
+    { status: 500 },
+  );
+}
+
 }
