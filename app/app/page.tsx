@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-interface Project {
+type Project  = {
   id: string;
   name?: string;
   includedLimit?: number;
