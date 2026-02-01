@@ -11,10 +11,17 @@ export async function GET(
     where: { id: projectId },
     select: { includedLimit: true },
   });
+    if (!project) {
+    return Response.json(
+      { error: "Project not found" },
+      { status: 404 },
+    );
+  }
     const lastRequest = await prisma.request.findFirst({
   where: { projectId },
   orderBy: { roundNumber: "desc" },
     });
+    
     const clientMessage = lastRequest
   ? buildClientMessage({
       roundNumber: lastRequest.roundNumber,

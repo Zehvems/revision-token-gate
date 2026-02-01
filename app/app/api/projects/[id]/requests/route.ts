@@ -50,8 +50,8 @@ export async function GET(
     const { id: projectId } = await params;
     console.log("Fetching requests for project ID:", projectId);
     const project = await prisma.project.findUnique({
-      where: { id: projectId },
-      select: { id: true },
+      where: { id: projectId }, 
+      select: { id: true, name: true, clientName: true, includedLimit: true },
     });
     if (!project) {
       return Response.json({ error: "project not found" }, { status: 404 });
@@ -61,12 +61,11 @@ export async function GET(
       where: { projectId: projectId },
       orderBy: { createdAt: "asc" },
     });
-    console.error("Request *DEBUG*:", requests);
     if (!requests || requests.length === 0) {
-      return Response.json({ message: "no requests found for this project", requests: [] }, { status: 200 });
+      return Response.json({ message: "no requests found for this project", requests: [], project }, { status: 200 });
     }
 
-    return Response.json({ status: "success", requests }, { status: 200 });
+    return Response.json({ status: "success",project, requests }, { status: 200 });
   } catch (e) {
     console.error(e);
     return Response.json({ error: "route err", detail: String(e) }, { status: 500 });

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function RequestForm({ projectId }: { projectId: string }) {
   const [body, setBody] = useState("");
-
+  const router = useRouter();
   return (
     <section>
       <textarea
@@ -31,6 +32,8 @@ export default function RequestForm({ projectId }: { projectId: string }) {
             const data = await res.json();
             console.log("Request created:", data);
             setBody("");
+            
+          router.push("/projects/" + projectId);
           } catch (err) {
             console.error("Network error", err);
           }

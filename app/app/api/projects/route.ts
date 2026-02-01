@@ -26,9 +26,13 @@ export async function POST(req: Request) {
       },
     });
     return Response.json(project, { status: 201 });
-  } catch {
-    return Response.json({ error: "route err" }, { status: 500 });
-  }
+  } catch (e) {
+  console.error(e);
+  return Response.json(
+    { error: "route err", detail: String(e) },
+    { status: 500 },
+  );
+}
 }
 export async function GET() {
   try {
