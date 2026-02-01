@@ -11,7 +11,7 @@ export default function AddProjectPage() {
   const [includedLimit, setIncludedLimit] = useState<number>(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  // obsługa submit
   async function handleSubmit() {
     if (!name.trim()) {
       setError("Project name required");
