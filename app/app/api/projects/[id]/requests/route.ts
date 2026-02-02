@@ -1,10 +1,11 @@
 import { prisma } from "../../../../src/lib/prisma";
-
+import { getWorkspaceKey } from "../../../../src/lib/workspace";
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const paramss = await params;
+  const wk = await getWorkspaceKey();
   const projectId = paramss.id;
   const data = await req.json();
   if (typeof data.body !== "string") {
@@ -16,8 +17,8 @@ export async function POST(
   }
 
   const project = await prisma.project.findUnique({
-    where: { id: projectId },
-    select: { includedLimit: true },
+    where: { id: projectId , workspaceKey: wk },
+    select: { id: true, includedLimit: true, name: true },
   });
 
   if (!project) {
@@ -47,10 +48,11 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const wk = await getWorkspaceKey();
     const { id: projectId } = await params;
     console.log("Fetching requests for project ID:", projectId);
     const project = await prisma.project.findUnique({
-      where: { id: projectId }, 
+      where: { id: projectId,  workspaceKey: wk }, 
       select: { id: true, name: true, clientName: true, includedLimit: true },
     });
     if (!project) {
