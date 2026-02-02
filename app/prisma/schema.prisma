@@ -13,7 +13,7 @@ model Project {
   name          String
   clientName    String?
   includedLimit Int
-  workspaceKey  String?  @default(cuid()) // <-- FIX: auto generuje
+  workspaceKey  String
   createdAt     DateTime @default(now())
 
   requests Request[]

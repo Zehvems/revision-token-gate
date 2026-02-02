@@ -29,6 +29,7 @@ export default function HomePage() {
   return (
   <main>
     <h1>Revision Token Gate</h1>
+    
     <Link
       href="/projects/add"
       aria-label="Add project"
@@ -47,6 +48,7 @@ export default function HomePage() {
     >
       Add project
     </Link>
+    <p>Your projects:</p>
     <ul>
       {projects.map((p, i) => (
         <li key={p.id ?? i}>

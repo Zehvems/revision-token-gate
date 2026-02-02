@@ -1,26 +1,28 @@
 import { prisma } from "../../src/lib/prisma";
 import { getWorkspaceKey } from "../../src/lib/workspace";
-function badRequest(message: string, detail?: unknown) {
-  return Response.json(
-    { error: message, ...(detail ? { detail } : {}) },
-    { status: 400 }
-  );
-}
 
 export async function POST(req: Request) {
   try {
-    const wk = await getWorkspaceKey();
     const data = await req.json();
+    const wk = await getWorkspaceKey();
 
-    const name = typeof data?.name === "string" ? data.name.trim() : "";
-    const clientNameRaw = typeof data?.clientName === "string" ? data.clientName.trim() : "";
-    const clientName = clientNameRaw ? clientNameRaw : null;
+    const name = typeof data.name === "string" ? data.name.trim() : "";
+    const clientName =
+      typeof data.clientName === "string" && data.clientName.trim()
+        ? data.clientName.trim()
+        : null;
 
-    const includedLimit = data?.includedLimit;
+    const includedLimit = data.includedLimit;
 
-    if (!name) return badRequest("name required");
-    if (typeof includedLimit !== "number" || !Number.isInteger(includedLimit) || includedLimit < 0) {
-      return badRequest("includedLimit must be int >= 0");
+    if (!name) {
+      return Response.json({ error: "name required" }, { status: 400 });
+    }
+    if (
+      typeof includedLimit !== "number" ||
+      !Number.isInteger(includedLimit) ||
+      includedLimit < 0
+    ) {
+      return Response.json({ error: "includedLimit must be int >= 0" }, { status: 400 });
     }
 
     const project = await prisma.project.create({
@@ -36,8 +38,11 @@ export async function POST(req: Request) {
         clientName: true,
         includedLimit: true,
         createdAt: true,
+        // workspaceKey: true, // odkomentuj tylko jeśli chcesz debugować
       },
     });
+
+    console.log("[projects:POST] wk=", wk, "created project id=", project.id);
 
     return Response.json({ project }, { status: 201 });
   } catch (e) {
@@ -49,6 +54,7 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     const wk = await getWorkspaceKey();
+    console.log("[projects:GET] wk=", wk);
 
     const projects = await prisma.project.findMany({
       where: { workspaceKey: wk },
@@ -59,8 +65,11 @@ export async function GET() {
         clientName: true,
         includedLimit: true,
         createdAt: true,
+        // workspaceKey: true, // odkomentuj tylko jeśli chcesz debugować
       },
     });
+
+    // console.log("[projects:GET] returned", projects);
 
     return Response.json({ projects }, { status: 200 });
   } catch (e) {
