@@ -3,10 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-  // Connection URLs are now configured in prisma.config.ts; remove `url` from schema per Prisma 7+
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+
+// Connection URLs are now configured in prisma.config.ts; remove `url` from schema per Prisma 7+
 
 model Project {
   id            String   @id @default(cuid())
