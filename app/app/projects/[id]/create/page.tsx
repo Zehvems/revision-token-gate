@@ -45,7 +45,6 @@ export default async function ProjectCreatePage({
   return (
     <main>
       <h1>Project &ldquo;{project.name}&rdquo;</h1>
-      <p>Dodaj nową poprawkę:</p>
       <RequestForm projectId={projectId} />
     </main>
   );
