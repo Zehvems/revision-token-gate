@@ -27,7 +27,7 @@ export default async function ProjectCreatePage({
   if (res.status === 404) {
     return (
       <main>
-        <h1>Project not found.</h1>
+        <h1>Projekt nie znaleziony (404).</h1>
       </main>
     );
   }

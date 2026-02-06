@@ -67,16 +67,16 @@ export default async function ProjectPage({
 
   let status = "—";
   if (currentRound > 0) {
-    if (currentType === "extra") status = "Extra";
-    else if (currentRound === project.includedLimit) status = "Last included";
-    else status = "Included";
+    if (currentType === "extra") status = "Poza pakietem";
+    else if (currentRound === project.includedLimit) status = "Ostatnia w pakiecie";
+    else status = "W pakiecie";
   }
 
-  const meter = `Round ${currentRound} / ${project.includedLimit} — ${status}`;
+  const meter = `Runda ${currentRound} / ${project.includedLimit} — ${status}`;
 
   return (
     <main>
-      <h1>Project “{project.name}”</h1>
+      <h1>Projekt “{project.name}”</h1>
       <h2>{meter}</h2>
 
       <CopyMessageButton
@@ -87,8 +87,8 @@ export default async function ProjectPage({
       <ul>
         {requests.map((r) => (
           <li key={r.id}>
-            {r.body} — Round {r.roundNumber} — {r.type}
-            {r.id === lastRequest?.id && <strong> ← current</strong>}
+            {r.body} — Runda {r.roundNumber} — {r.type === "included" ? "W pakiecie" : "Poza pakietem"}
+            {r.id === lastRequest?.id && <strong> ← obecna</strong>}
           </li>
         ))}
       </ul>
@@ -130,7 +130,7 @@ export default async function ProjectPage({
             gap: 8,
           }}
         >
-          <span style={{ transform: "translateY(-1px)" }}>Add request</span>
+          <span style={{ transform: "translateY(-1px)" }}>Dodaj poprawkę</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M5 12h14M13 5l6 7-6 7"

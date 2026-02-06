@@ -94,7 +94,7 @@ export default function HomePage() {
       <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
         <Link
           href="/projects/add"
-          aria-label="Add project"
+          aria-label="Dodaj projekt"
           style={{
             display: "inline-flex",
             gap: 8,
@@ -110,7 +110,7 @@ export default function HomePage() {
             fontWeight: 600,
           }}
         >
-          Add project
+          Dodaj projekt
         </Link>
 
         <button
@@ -132,7 +132,7 @@ export default function HomePage() {
             fontWeight: 600,
           }}
         >
-          {state === "loading" ? "Reloading…" : "Reload"}
+          {state === "loading" ? "Ładowanie…" : "Odśwież"}
         </button>
 
         <span style={{ fontSize: 12, color: "#6b7280" }}>{countLabel}</span>
@@ -153,15 +153,15 @@ export default function HomePage() {
       )}
 
       <div style={{ display: "grid", gap: 10 }}>
-        <p style={{ margin: 0, color: "#374151" }}>Your projects:</p>
+        <p style={{ margin: 0, color: "#374151" }}>Twoje projekty:</p>
 
         {state === "loading" && projects.length === 0 ? (
           <div style={{ padding: 10, border: "1px solid #e5e7eb", borderRadius: 10 }}>
-            Loading projects…
+            Ładowanie projektów…
           </div>
         ) : projects.length === 0 ? (
           <div style={{ padding: 10, border: "1px solid #e5e7eb", borderRadius: 10 }}>
-            No projects yet. Click <strong>Add project</strong>.
+            Brak dodanych projektów. Kliknij <strong>dodaj projekt</strong>.
           </div>
         ) : (
           <ul style={{ margin: 0, paddingLeft: 18, display: "grid", gap: 8 }}>

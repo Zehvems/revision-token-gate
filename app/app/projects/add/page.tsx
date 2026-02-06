@@ -55,7 +55,7 @@ export default function AddProjectPage() {
 
       <div>
         <label>
-          Project name
+          Nazwa projektu
           <br />
           <input
             value={name}
@@ -66,7 +66,7 @@ export default function AddProjectPage() {
 
       <div>
         <label>
-          Client name (optional)
+          Nazwa klienta (optional)
           <br />
           <input
             value={clientName}
@@ -77,7 +77,7 @@ export default function AddProjectPage() {
 
       <div>
         <label>
-          Included limit
+          Limit poprawek w pakiecie
           <br />
           <input
             type="number"
@@ -91,7 +91,7 @@ export default function AddProjectPage() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <button onClick={handleSubmit} disabled={loading}>
-        {loading ? "Creating..." : "Create project"}
+        {loading ? "Tworzenie..." : "Stwórz projekt"}
       </button>
     </main>
   );
